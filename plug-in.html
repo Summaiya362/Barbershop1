@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 
-	<title>TableTools example - Initialisation with `new`</title>
+	<title>TableTools example - Plug-in button types</title>
 	<link rel="stylesheet" type="text/css" href="../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css">
 	<link rel="stylesheet" type="text/css" href="../../../examples/resources/syntax/shCore.css">
@@ -21,13 +21,33 @@
 	<script type="text/javascript" language="javascript" class="init">
 
 
-$(document).ready(function() {
-	var table = $('#example').DataTable();
-	var tt = new $.fn.dataTable.TableTools( table, {
-		sRowSelect: 'single'
-	} );
 
-	$( tt.fnContainer() ).insertAfter('div.info');
+$.fn.dataTable.TableTools.buttons.copy_to_div = $.extend(
+	true,
+	{},
+	$.fn.dataTable.TableTools.buttonBase,
+	{
+		"sNewLine":    "<br>",
+		"sButtonText": "Copy to element",
+		"target":      "",
+		"fnClick": function( button, conf ) {
+			$(conf.target).html( this.fnGetTableData(conf) );
+		}
+	}
+);
+
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		dom: 'T<"clear">lfrtip',
+		tableTools: {
+			"aButtons": [ {
+				"sExtends":    "copy_to_div",
+				"sButtonText": "Copy to HTML",
+				"target":      "#copy"
+			} ]
+		}
+	} );
 } );
 
 
@@ -37,20 +57,19 @@ $(document).ready(function() {
 <body class="dt-example">
 	<div class="container">
 		<section>
-			<h1>TableTools example <span>Initialisation with `new`</span></h1>
+			<h1>TableTools example <span>Plug-in button types</span></h1>
 
 			<div class="info">
-				<p>Typically when working with TableTools, the initialisation and insertion into the DOM will be done automatically by DataTables, through the use of the <a href=
-				"//datatables.net/reference/option/dom"><code class="option" title="DataTables initialisation option">dom<span>DT</span></code></a> parameter. However, it is also
-				possible to initialise TableTools manually as shown in the example below using <code>new $.fn.dataTable.TableTools();</code>. The constructor for TableTools takes
-				two parameters:</p>
+				<p>This example shows now a plug-in button type can be created for TableTools. Button types are attached to the <code>$.fn.dataTable.TableTools.buttons</code>
+				object and extend <code>$.fn.dataTable.TableTools.buttonBase</code>. All of the <a href="//datatables.net/extensions/tabletools/button_options">button options
+				defined in the documentation</a> are available and can be overridden as required. Finally to use the button simply include its name in the <code>aButtons</code>
+				array or use it as a button extender (<code>sExtends</code>).</p>
 
-				<ol class="markdown">
-					<li>The DataTable that the newly created TableTools instance should attach to</li>
-					<li>Optionally - A list of options</li>
-				</ol>
+				<p>This example shows a button which will simply get the data contents of a table and set that as the contents of another element.</p>
+			</div>
 
-				<p>Once initialised you can insert the TableTools tool bar node anywhere you wish into the DOM using the <code>fnContainer()</code> API method to get the node.</p>
+			<div id="copy" class="box" style="height: 100px; overflow: auto">
+				Copy output will go here
 			</div>
 
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -546,13 +565,32 @@ $(document).ready(function() {
 
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var table = $('#example').DataTable();
-	var tt = new $.fn.dataTable.TableTools( table, {
-		sRowSelect: 'single'
-	} );
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$.fn.dataTable.TableTools.buttons.copy_to_div = $.extend(
+	true,
+	{},
+	$.fn.dataTable.TableTools.buttonBase,
+	{
+		&quot;sNewLine&quot;:    &quot;&lt;br&gt;&quot;,
+		&quot;sButtonText&quot;: &quot;Copy to element&quot;,
+		&quot;target&quot;:      &quot;&quot;,
+		&quot;fnClick&quot;: function( button, conf ) {
+			$(conf.target).html( this.fnGetTableData(conf) );
+		}
+	}
+);
 
-	$( tt.fnContainer() ).insertAfter('div.info');
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		dom: 'T&lt;&quot;clear&quot;&gt;lfrtip',
+		tableTools: {
+			&quot;aButtons&quot;: [ {
+				&quot;sExtends&quot;:    &quot;copy_to_div&quot;,
+				&quot;sButtonText&quot;: &quot;Copy to HTML&quot;,
+				&quot;target&quot;:      &quot;#copy&quot;
+			} ]
+		}
+	} );
 } );</code>
 
 					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
@@ -609,7 +647,7 @@ $(document).ready(function() {
 						<ul class="toc active">
 							<li><a href="./simple.html">Basic initialisation</a></li>
 							<li><a href="./swf_path.html">Setting the SWF path</a></li>
-							<li class="active"><a href="./new_init.html">Initialisation with `new`</a></li>
+							<li><a href="./new_init.html">Initialisation with `new`</a></li>
 							<li><a href="./defaults.html">Defaults</a></li>
 							<li><a href="./select_single.html">Row selection - single row select</a></li>
 							<li><a href="./select_multi.html">Row selection - multi-row select</a></li>
@@ -618,7 +656,7 @@ $(document).ready(function() {
 							<li><a href="./multiple_tables.html">Multiple tables</a></li>
 							<li><a href="./multi_instance.html">Multiple toolbars</a></li>
 							<li><a href="./collection.html">Button collections</a></li>
-							<li><a href="./plug-in.html">Plug-in button types</a></li>
+							<li class="active"><a href="./plug-in.html">Plug-in button types</a></li>
 							<li><a href="./button_text.html">Custom button text</a></li>
 							<li><a href="./alter_buttons.html">Button arrangement</a></li>
 							<li><a href="./ajax.html">Ajax loaded data</a></li>

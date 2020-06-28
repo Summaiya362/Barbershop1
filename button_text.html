@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 
-	<title>TableTools example - Initialisation with `new`</title>
+	<title>TableTools example - Custom button text</title>
 	<link rel="stylesheet" type="text/css" href="../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css">
 	<link rel="stylesheet" type="text/css" href="../../../examples/resources/syntax/shCore.css">
@@ -22,12 +22,27 @@
 
 
 $(document).ready(function() {
-	var table = $('#example').DataTable();
-	var tt = new $.fn.dataTable.TableTools( table, {
-		sRowSelect: 'single'
+	$('#example').DataTable( {
+		"dom": 'T<"clear">lfrtip',
+		"tableTools": {
+			"aButtons": [
+				{
+					"sExtends": "copy",
+					"sButtonText": "Copy to clipboard"
+				},
+				{
+					"sExtends": "csv",
+					"sButtonText": "Save to CSV"
+				},
+				{
+					"sExtends": "xls",
+					"oSelectorOpts": {
+						page: 'current'
+					}
+				}
+			]
+		}
 	} );
-
-	$( tt.fnContainer() ).insertAfter('div.info');
 } );
 
 
@@ -37,20 +52,15 @@ $(document).ready(function() {
 <body class="dt-example">
 	<div class="container">
 		<section>
-			<h1>TableTools example <span>Initialisation with `new`</span></h1>
+			<h1>TableTools example <span>Custom button text</span></h1>
 
 			<div class="info">
-				<p>Typically when working with TableTools, the initialisation and insertion into the DOM will be done automatically by DataTables, through the use of the <a href=
-				"//datatables.net/reference/option/dom"><code class="option" title="DataTables initialisation option">dom<span>DT</span></code></a> parameter. However, it is also
-				possible to initialise TableTools manually as shown in the example below using <code>new $.fn.dataTable.TableTools();</code>. The constructor for TableTools takes
-				two parameters:</p>
+				<p>You may wish to set your own text for the buttons in the TableTools toolbar, rather than relying on the default built-in text. This is done by overriding the
+				<code>sButtonText</code> parameter of whatever button you wish to alter. The way TableTools allows you to alter a predefined button is by 'extending' it (using the
+				<code>sExtends</code> parameter) and then setting the overriding parameter.</p>
 
-				<ol class="markdown">
-					<li>The DataTable that the newly created TableTools instance should attach to</li>
-					<li>Optionally - A list of options</li>
-				</ol>
-
-				<p>Once initialised you can insert the TableTools tool bar node anywhere you wish into the DOM using the <code>fnContainer()</code> API method to get the node.</p>
+				<p>A full list of the parameters which can be used is <a href="http://datatables.net/extensions/tabletools/button_options">available on the DataTables.net
+				web-site</a>. This example shows how to set the button text as required.</p>
 			</div>
 
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -547,12 +557,27 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var table = $('#example').DataTable();
-	var tt = new $.fn.dataTable.TableTools( table, {
-		sRowSelect: 'single'
+	$('#example').DataTable( {
+		&quot;dom&quot;: 'T&lt;&quot;clear&quot;&gt;lfrtip',
+		&quot;tableTools&quot;: {
+			&quot;aButtons&quot;: [
+				{
+					&quot;sExtends&quot;: &quot;copy&quot;,
+					&quot;sButtonText&quot;: &quot;Copy to clipboard&quot;
+				},
+				{
+					&quot;sExtends&quot;: &quot;csv&quot;,
+					&quot;sButtonText&quot;: &quot;Save to CSV&quot;
+				},
+				{
+					&quot;sExtends&quot;: &quot;xls&quot;,
+					&quot;oSelectorOpts&quot;: {
+						page: 'current'
+					}
+				}
+			]
+		}
 	} );
-
-	$( tt.fnContainer() ).insertAfter('div.info');
 } );</code>
 
 					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
@@ -609,7 +634,7 @@ $(document).ready(function() {
 						<ul class="toc active">
 							<li><a href="./simple.html">Basic initialisation</a></li>
 							<li><a href="./swf_path.html">Setting the SWF path</a></li>
-							<li class="active"><a href="./new_init.html">Initialisation with `new`</a></li>
+							<li><a href="./new_init.html">Initialisation with `new`</a></li>
 							<li><a href="./defaults.html">Defaults</a></li>
 							<li><a href="./select_single.html">Row selection - single row select</a></li>
 							<li><a href="./select_multi.html">Row selection - multi-row select</a></li>
@@ -619,7 +644,7 @@ $(document).ready(function() {
 							<li><a href="./multi_instance.html">Multiple toolbars</a></li>
 							<li><a href="./collection.html">Button collections</a></li>
 							<li><a href="./plug-in.html">Plug-in button types</a></li>
-							<li><a href="./button_text.html">Custom button text</a></li>
+							<li class="active"><a href="./button_text.html">Custom button text</a></li>
 							<li><a href="./alter_buttons.html">Button arrangement</a></li>
 							<li><a href="./ajax.html">Ajax loaded data</a></li>
 							<li><a href="./pdf_message.html">PDF message</a></li>
