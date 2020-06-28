@@ -1,38 +1,36 @@
-# AutoFill
+# KeyTable
 
-AutoFill gives an Excel like option to a DataTable to click and drag over multiple cells, filling in information over the selected cells and incrementing numbers as needed. Key features include:
+KeyTable provides enhanced accessibility and navigation options for DataTables enhanced tables, by allowing Excel like cell navigation on any table. Events (focus, blur, action etc) can be assigned to individual cells, columns, rows or all cells to allow advanced interaction options.. Key features include:
 
-* Click and drag cell content insertion
-* Automatic incrementing of numeric information
-* Enable and disable on any column
-* Detailed callback functions for customisation
-* Support for both DataTables and browser window scrolling
+* Easy to use spreadsheet like interaction
+* Fully integrated with DataTables
+* Wide range of supported events
 
 
 # Installation
 
-To use AutoFill, first download DataTables ( http://datatables.net/download ) and place the unzipped AutoFill package into a `extensions` directory in the DataTables package. This will allow the pages in the examples to operate correctly. To see the examples running, open the `examples` directory in your web-browser.
+To use KeyTable, first download DataTables ( http://datatables.net/download ) and place the unzipped KeyTable package into a `extensions` directory in the DataTables package. This will allow the pages in the examples to operate correctly. To see the examples running, open the `examples` directory in your web-browser.
 
 
 # Basic usage
 
-AutoFill is initialised using the `$.fn.dataTable.AutoFill` constructor. For example:
+KeyTable is initialised using the `C` option that it adds to DataTables' `dom` option. For example:
 
 ```js
 $(document).ready( function () {
-    var table = $('#example').dataTable();
-    new $.fn.dataTable.AutoFill( table );
+	var table = $('#example').DataTable();
+	new $.fn.dataTable.KeyTable( table );
 } );
 ```
 
 
 # Documentation / support
 
-* Documentation: http://datatables.net/extensions/autofill/
+* Documentation: http://datatables.net/extensions/keytable/
 * DataTables support forums: http://datatables.net/forums
 
 
 # GitHub
 
-If you fancy getting involved with the development of AutoFill and help make it better, please refer to its GitHub repo: https://github.com/DataTables/AutoFill
+If you fancy getting involved with the development of KeyTable and help make it better, please refer to its GitHub repo: https://github.com/DataTables/KeyTable
 

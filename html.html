@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 
-	<title>KeyTable example - Scrolling table</title>
+	<title>KeyTable example - Plain HTML table</title>
 	<link rel="stylesheet" type="text/css" href="../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../css/dataTables.keyTable.css">
 	<link rel="stylesheet" type="text/css" href="../../../examples/resources/syntax/shCore.css">
@@ -22,12 +22,8 @@
 
 
 $(document).ready(function() {
-	var table = $('#example').DataTable( {
-		scrollY: 300,
-		paging: false
-	} );
-
-	new $.fn.dataTable.KeyTable( table );
+	$('#example').addClass('KeyTable');
+	new $.fn.dataTable.KeyTable();
 } );
 
 
@@ -37,16 +33,14 @@ $(document).ready(function() {
 <body class="dt-example">
 	<div class="container">
 		<section>
-			<h1>KeyTable example <span>Scrolling table</span></h1>
+			<h1>KeyTable example <span>Plain HTML table</span></h1>
 
 			<div class="info">
-				<p>KeyTable supports DataTables' scrolling options (<a href=
-				"//datatables.net/reference/option/scrollX"><code class="option" title=
-				"DataTables initialisation option">scrollX<span>DT</span></code></a> and <a href=
-				"//datatables.net/reference/option/scrollY"><code class="option" title=
-				"DataTables initialisation option">scrollY<span>DT</span></code></a>) without required any additional
-				configuration. As the navigation keys are used to alter the focus of the KeyTable, the DataTables
-				scrolling position is altered to show the focused cell.</p>
+				<p>As well as being usable with DataTables, KeyTable can also be used with a plain HTML table. Please
+				note that this ability is deprecated and will be removed in KeyTable 1.3.</p>
+
+				<p>This example shows KeyTable being initialised without any parameter, which instructs it to search
+				for any table with the class <code>KeyTable</code> which will be used.</p>
 			</div>
 
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -544,12 +538,8 @@ $(document).ready(function() {
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this
 					example:</p><code class="multiline brush: js;">$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		scrollY: 300,
-		paging: false
-	} );
-
-	new $.fn.dataTable.KeyTable( table );
+	$('#example').addClass('KeyTable');
+	new $.fn.dataTable.KeyTable();
 } );</code>
 
 					<p>In addition to the above code, the following Javascript library files are loaded for use in this
@@ -613,8 +603,8 @@ $(document).ready(function() {
 						<ul class="toc active">
 							<li><a href="./simple.html">Basic initialisation</a></li>
 							<li><a href="./events.html">Events</a></li>
-							<li class="active"><a href="./scrolling.html">Scrolling table</a></li>
-							<li><a href="./html.html">Plain HTML table</a></li>
+							<li><a href="./scrolling.html">Scrolling table</a></li>
+							<li class="active"><a href="./html.html">Plain HTML table</a></li>
 						</ul>
 					</div>
 				</div>

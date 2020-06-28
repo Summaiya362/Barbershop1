@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
 
-	<title>FixedColumns example - Individual column filtering</title>
+	<title>FixedColumns example - Fluid column width</title>
 	<link rel="stylesheet" type="text/css" href="../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../css/dataTables.fixedColumns.css">
 	<link rel="stylesheet" type="text/css" href="../../../examples/resources/syntax/shCore.css">
@@ -15,8 +15,11 @@
 	/* Ensure that the demo table scrolls */
 	th, td { white-space: nowrap; }
 	div.dataTables_wrapper {
-		width: 800px;
 		margin: 0 auto;
+	}
+
+	div.container {
+		width: 80%;
 	}
 
 	</style>
@@ -29,30 +32,15 @@
 
 
 $(document).ready(function() {
-	// Setup - add a text input to each footer cell
-	$('#example tfoot th').each( function () {
-		var title = $('#example thead th').eq( $(this).index() ).text();
-		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-	} );
- 
-	// DataTable
 	var table = $('#example').DataTable( {
 		scrollY:        "300px",
 		scrollX:        true,
 		scrollCollapse: true,
-		paging:         false
+		paging:         false,
+		columnDefs: [
+			{ width: '20%', targets: 0 }
+		]
 	} );
-	 
-	// Apply the filter
-	table.columns().indexes().each( function (idx) {
-		$( 'input', table.column( idx ).footer() ).on( 'keyup change', function () {
-			table
-				.column( idx )
-				.search( this.value )
-				.draw();
-		} );
-	} );
-
 	new $.fn.dataTable.FixedColumns( table );
 } );
 
@@ -63,11 +51,16 @@ $(document).ready(function() {
 <body class="dt-example">
 	<div class="container">
 		<section>
-			<h1>FixedColumns example <span>Individual column filtering</span></h1>
+			<h1>FixedColumns example <span>Fluid column width</span></h1>
 
 			<div class="info">
-				<p>This example shows FixedColumns being configured with individual column filtering abilities. Note that the event handler for the filtering is applied to the
-				<code class="tag" title="HTML tag">input</code> elements before FixedColumns is initialised, so when FixedColumns clones nodes it also copies the event.</p>
+				<p>The columns that are fixed in place by FixedColumns take their width from the parent DataTable. As such, the width of the column can be controlled using the
+				<a href="//datatables.net/reference/option/columns.width"><code class="option" title="DataTables initialisation option">columns.width<span>DT</span></code></a>
+				option.</p>
+
+				<p>This example shows the first column being set to <code>width: 20%</code> (note that this is not pixel perfect in a table, the browser will make some
+				adjustments!), a width that is reflected in the fixed column. Resize the browser window horizontally and you will be able to see that the fixed column retains its
+				proportional width (again with a small margin dictated by the browser) in the resizing table.</p>
 			</div>
 
 			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
@@ -84,20 +77,6 @@ $(document).ready(function() {
 						<th>E-mail</th>
 					</tr>
 				</thead>
-
-				<tfoot>
-					<tr>
-						<th>First name</th>
-						<th>Last name</th>
-						<th>Position</th>
-						<th>Office</th>
-						<th>Age</th>
-						<th>Start date</th>
-						<th>Salary</th>
-						<th>Extn.</th>
-						<th>E-mail</th>
-					</tr>
-				</tfoot>
 
 				<tbody>
 					<tr>
@@ -741,30 +720,15 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	// Setup - add a text input to each footer cell
-	$('#example tfoot th').each( function () {
-		var title = $('#example thead th').eq( $(this).index() ).text();
-		$(this).html( '&lt;input type=&quot;text&quot; placeholder=&quot;Search '+title+'&quot; /&gt;' );
-	} );
- 
-	// DataTable
 	var table = $('#example').DataTable( {
 		scrollY:        &quot;300px&quot;,
 		scrollX:        true,
 		scrollCollapse: true,
-		paging:         false
+		paging:         false,
+		columnDefs: [
+			{ width: '20%', targets: 0 }
+		]
 	} );
-	 
-	// Apply the filter
-	table.columns().indexes().each( function (idx) {
-		$( 'input', table.column( idx ).footer() ).on( 'keyup change', function () {
-			table
-				.column( idx )
-				.search( this.value )
-				.draw();
-		} );
-	} );
-
 	new $.fn.dataTable.FixedColumns( table );
 } );</code>
 
@@ -787,8 +751,11 @@ $(document).ready(function() {
 						additional CSS used is shown below:</p><code class="multiline language-css">/* Ensure that the demo table scrolls */
 	th, td { white-space: nowrap; }
 	div.dataTables_wrapper {
-		width: 800px;
 		margin: 0 auto;
+	}
+
+	div.container {
+		width: 80%;
 	}</code>
 					</div>
 
@@ -834,8 +801,8 @@ $(document).ready(function() {
 							<li><a href="./server-side-processing.html">Server-side processing</a></li>
 							<li><a href="./css_size.html">CSS row sizing</a></li>
 							<li><a href="./size_fixed.html">Assigned column width</a></li>
-							<li><a href="./size_fluid.html">Fluid column width</a></li>
-							<li class="active"><a href="./col_filter.html">Individual column filtering</a></li>
+							<li class="active"><a href="./size_fluid.html">Fluid column width</a></li>
+							<li><a href="./col_filter.html">Individual column filtering</a></li>
 							<li><a href="./bootstrap.html">Bootstrap</a></li>
 							<li><a href="./index_column.html">Index column</a></li>
 						</ul>
